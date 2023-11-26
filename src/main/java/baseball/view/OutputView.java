@@ -1,5 +1,7 @@
 package baseball.view;
 
+import baseball.dto.BallResultDto;
+
 public class OutputView {
     public static void showStart() {
         System.out.println(OutMessage.START_MESSAGE.getMessage());
@@ -11,6 +13,24 @@ public class OutputView {
 
     public static void requestUserNumeber() {
         System.out.print(OutMessage.REQUEST_USER_NUMBER.getMessage());
+    }
+
+    public static void showResult(final BallResultDto dto) {
+        if(dto.isNothing()){
+            System.out.println(OutMessage.NOTHING.getMessage());
+            return;
+        }
+        if(dto.isOnlyBall()){
+            System.out.println(String.format(OutMessage.BALL.getMessage(), dto.getBall()));
+            return;
+        }
+        if(dto.isOnlyStrike()){
+            System.out.println(String.format(OutMessage.STRIKE.getMessage(), dto.getStrike()));
+            return;
+        }
+        System.out.println(String.format(OutMessage.BALL.getMessage(), dto.getStrike())
+                + " " + String.format(OutMessage.STRIKE.getMessage(), dto.getBall()));
+
     }
 
 

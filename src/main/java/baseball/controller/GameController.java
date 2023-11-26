@@ -1,6 +1,7 @@
 package baseball.controller;
 
 import baseball.dto.BallDto;
+import baseball.dto.BallResultDto;
 import baseball.service.BallService;
 import baseball.utils.ExceptionHandler;
 import baseball.utils.InputConvertor;
@@ -22,9 +23,13 @@ public class GameController {
 
     public void run() {
         OutputView.showStart();
+        //TODO : ExceptionHandler::input
         settingComputerNumbers();
-        //while(게임 진행)
-        settingUserNumbers();
+        while(true){
+            settingUserNumbers();
+            BallResultDto dto = ballService.compareBall();
+            OutputView.showResult(dto);
+        }
 
 
     }
@@ -42,5 +47,6 @@ public class GameController {
     }
 
     private void settingComputerNumbers() {
+        ballService.setComputerBall();
     }
 }

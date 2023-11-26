@@ -1,8 +1,7 @@
 package baseball.domain;
 
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 public class Ball {
     private static final int BALL_SIZE = 3;
@@ -25,6 +24,9 @@ public class Ball {
         }
     }
 
+    public List<Integer> getBalls() {
+        return Collections.unmodifiableList(balls);
+    }
     public int getFirst() {
         return balls.get(0);
     }
@@ -35,5 +37,22 @@ public class Ball {
 
     public int getThird() {
         return balls.get(2);
+    }
+
+    public int compareBall(final Ball userBall, final int strike) {
+        int ball = (int) this.balls.stream().filter(
+                number -> userBall.getBalls().contains(number)
+        ).count();
+        return ball - strike;
+    }
+
+    public int compareStrike(final Ball userBall) {
+        int strike = 0;
+        for(int i = 0; i < BALL_SIZE; i++) {
+            if(this.balls.get(i) == userBall.getBalls().get(i)) {
+                strike++;
+            }
+        }
+        return strike;
     }
 }
